@@ -19,7 +19,7 @@
 
 
 - hosts:
-    - pm
+    - production
   strategy: free
   user: root
   vars:
