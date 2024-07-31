@@ -40,5 +40,5 @@
       register: command_output
       
     - name: Print to console
-      debug: msg = "{{command_output.stdout_line}}"
+      debug: msg = "{{command_output.stdout}}"
       
