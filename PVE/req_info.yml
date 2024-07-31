@@ -36,9 +36,9 @@
       shell: |
         echo '{{ inventory_hostname }},{{ pveversion.stdout }},{{ kernel_version.stdout }},{{ os_release.stdout }}' >> {{ report_file }}
 
-    - name: Display list of files in {{ report_file }}
+    - name: Generate ouput from {{ report_file }}
       ansible.builtin.command: cat {{ report_file }}
-      register: log_files
-    - name: Output list of log files
+      register: report_information
+    - name: Output {{ report_file }}
       ansible.builtin.debug:
-        var: log_files.stdout_lines
+        var: report_information
