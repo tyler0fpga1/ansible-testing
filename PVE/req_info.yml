@@ -4,13 +4,12 @@
     - name: Get local file
       set_fact:
         local_file: "~/ProxmoxVersionReport.{{ ansible_date_time.date + '-' + ansible_date_time.hour + ansible_date_time.minute + ansible_date_time.second }}.csv"
-      shell: |
-        echo $({{ local_file }})
 
     - name: Create local file
       delegate_to: localhost
       shell: |
         echo "Hostname,Proxmox Version,Kernel Version,OS Version" > {{ local_file }}
+
 
 - hosts:
     - pm
