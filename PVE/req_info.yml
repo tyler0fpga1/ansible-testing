@@ -8,7 +8,7 @@
     - name: Create local file
       delegate_to: localhost
       shell: |
-        echo "Hostname,Proxmox Version,Kernel Version,OS Version" > {{ local_file }}
+        echo "Hostname,Proxmox Version,Kernel Version,OS Version" > {{ local_file }} && echo $({{ local_file }})
 
 
 - hosts:
