@@ -35,6 +35,8 @@
       delegate_to: localhost
       shell: |
         echo '{{ inventory_hostname }},{{ pveversion.stdout }},{{ kernel_version.stdout }},{{ os_release.stdout }}' >> {{ report_file }}
+      shell: |
+        cat {{ report_file }}
       register: command_output
       
     - name: Print to console
