@@ -16,12 +16,6 @@
 
     - name: Print to console
       debug: msg = "{{command_output.stdout}}"
-
-
-- hosts:
-    - production
-  strategy: free
-  user: root
   vars:
     report_file: "{{ hostvars['localhost']['local_file'] }}"
   tasks:
