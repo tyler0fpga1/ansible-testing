@@ -13,7 +13,7 @@
 
 
 - hosts:
-    - production
+    - localhost
   strategy: free
   user: root
   vars:
