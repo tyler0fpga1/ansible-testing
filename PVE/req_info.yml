@@ -35,10 +35,10 @@
       delegate_to: localhost
       shell: |
         echo '{{ inventory_hostname }},{{ pveversion.stdout }},{{ kernel_version.stdout }},{{ os_release.stdout }}' >> {{ report_file }}
-      shell: |
-        cat {{ report_file }}
-      register: command_output
-      
-    - name: Print to console
-      debug: msg = "{{command_output.stdout}}"
-      
+
+ - name: Display list of files in /var/log
+   ansible.builtin.command: ls /var/log
+   register: log_files
+ - name: Output list of log files
+   ansible.builtin.debug:
+     var: log_files.stdout_lines
