@@ -9,13 +9,13 @@
       delegate_to: localhost
       shell: |
         echo "Hostname,Proxmox Version,Kernel Version,OS Version" > {{ local_file }}
-      
-    - name: Display resolv.conf contents
-      command: cat {{ local_file }} chdir=~
-      register: command_output
 
-    - name: Print to console
-      debug: msg = "{{command_output.stdout}}"
+
+
+- hosts:
+    - pm
+  strategy: free
+  user: root
   vars:
     report_file: "{{ hostvars['localhost']['local_file'] }}"
   tasks:
