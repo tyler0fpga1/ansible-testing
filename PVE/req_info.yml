@@ -8,7 +8,14 @@
     - name: Create local file
       delegate_to: localhost
       shell: |
-        echo "Hostname,Proxmox Version,Kernel Version,OS Version" > {{ local_file }} && echo $({{ local_file }})
+        echo "Hostname,Proxmox Version,Kernel Version,OS Version" > {{ local_file }}
+      
+    - name: Display resolv.conf contents
+      command: cat {{ local_file }} chdir=~
+      register: command_output
+
+    - name: Print to console
+      debug: msg = "{{command_output.stdout}}"
 
 
 - hosts:
