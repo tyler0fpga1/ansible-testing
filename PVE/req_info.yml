@@ -1,12 +1,14 @@
 # unicorn pam ssh -a -C -- ansible-playbook playbooks/ansible-admin/proxmox-version-report.yml -f 30
 - hosts: localhost
   tasks:
+    - debug: var
     - name: Get local file
       set_fact:
         local_file: "~/ProxmoxVersionReport.{{ ansible_date_time.date + '-' + ansible_date_time.hour + ansible_date_time.minute + ansible_date_time.second }}.csv"
-        shell: |
-          echo $(cat {{ "~/ProxmoxVersionReport.{{ ansible_date_time.date + '-' + ansible_date_time.hour + ansible_date_time.minute + ansible_date_time.second }}.csv" }})
-
+              vars:
+        file_content: "{{ lookup('file', {{ local_file }}) }}"
+      when: file_content.splitlines()|length > 0
+      run_once: true
 
     - name: Create local file
       delegate_to: localhost
