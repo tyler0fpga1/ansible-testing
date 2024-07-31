@@ -32,4 +32,4 @@
     - name: Generate Version Report
       delegate_to: localhost
       shell: |
-        echo '{{ inventory_
+        echo '{{ inventory_hostname }},{{ pveversion.stdout }},{{ kernel_version.stdout }},{{ os_release.stdout }}' >> {{ report_file }}
