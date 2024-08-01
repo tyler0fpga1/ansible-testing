@@ -8,7 +8,7 @@
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
+# (at your option) any) later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -109,10 +109,7 @@ cmdb: ## make cmdb # Create HTML inventory report
 
 .PHONY: bootstrap
 bootstrap: ## make bootstrap # Install ansible (Ubuntu only)
-	@apt-get install -y software-properties-common && \
-	apt-add-repository ppa:ansible/ansible && \
-	apt-get update && \
-	apt-get install -y ansible
+	$(makefile_dir)./_setup.sh
 
 .PHONY: mandatory-host-param mandatory-file-param
 mandatory-host-param:

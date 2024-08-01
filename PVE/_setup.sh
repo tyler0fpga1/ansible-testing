@@ -1,7 +1,7 @@
 #!/bin/bash
-Version = "1"
-SSH_PORT = "22"
-echo
+$Version = "1"
+SSH_PORT=22
+$echo
 if [ "$EUID" -ne 0 ];then
 	echo "Run as root or sudo."
 	exit 1
@@ -65,8 +65,9 @@ $PKG_EXE dejavu-serif-fonts
 echo "Installing python"
 $PKG_EXE python3
 echo "Installing Ansible"
-$PKG_EXE ansible ansible-core ansible-galaxy
+$PKG_EXE ansible ansible-core ansible-galaxyi
 
+# -> Firwall <-
 ufw allow $SSH_PORT
 
 
