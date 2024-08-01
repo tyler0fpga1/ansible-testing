@@ -23,7 +23,7 @@ SHELL:=/bin/bash
 ##
 # VARIABLES
 ##
-playbook   ?= test-template
+playbook   ?= "test-template" 
 roles_path ?= "roles/"
 env        ?= hosts
 mkfile_dir ?= $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
