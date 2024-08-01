@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# ------------------
+# ANSIBLE-MAKEFILE v0.16.0
+# Run ansible commands with ease
+# ------------------
+#
+make -f /opt/ansible/Makefile $@
