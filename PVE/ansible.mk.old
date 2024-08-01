@@ -1,0 +1,38 @@
+###################
+# ANSIBLE MK FILE #	
+# VERSION:   0.1a #
+###################
+
+shell=/bin/bash
+
+
+# -> VARIABLES <-
+#
+#
+ANSIBLE_PLAYBOOK := ansible-playbook
+INVENTORY := inventory.ini
+PLAYBOOK := playbook.yml
+
+
+# -> DEFAULT: TARGET <-
+#
+#
+all: deploy
+
+
+# -> DEF. TASKS <-
+#
+#
+
+deoloy:
+	${ANSIBLE_PLAYBOOK} -i ${INVENTORY} ${PLAYBOOK}
+check:
+	${ANSIBLE_PLAYBOOK} -i ${INVENTORY} --syntax-check ${PLAYBOOK}
+dry-run:
+	${ANSIBLE_PLAYBOOK} -i ${INVENTORY} --check ${PLAYBOOK}
+
+clean:
+	clear
+	echo "There's some cleaning that needs to be done here..."
+
+.PHONY: all deploy check dry-run clean

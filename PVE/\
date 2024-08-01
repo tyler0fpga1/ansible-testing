@@ -1,0 +1,38 @@
+###################
+# ANSIBLE MK FILE #	
+# VERSION:   0.1a #
+###################
+
+shell=/bin/bash
+
+# -> VARIABLES <-
+#
+#
+ANSIBLE_PLAYBOOK 	:= "playbook.d/"
+INVENTORY 		:= inventory.ini
+PLAYBOOK 		:= main.yml
+ENV			?= hosts
+mkfile_dir ?= $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+# -> DEFAULT: TARGET <-
+#
+#
+all: deploy
+
+
+# -> DEF. TASKS <-
+#
+#
+
+deoloy:
+	${ANSIBLE_PLAYBOOK} -i ${INVENTORY} ${PLAYBOOK}
+check:
+	${ANSIBLE_PLAYBOOK} -i ${INVENTORY} --syntax-check ${PLAYBOOK}
+dry-run:
+	${ANSIBLE_PLAYBOOK} -i ${INVENTORY} --check ${PLAYBOOK}
+clean:
+	clear
+	echo "There's some cleaning that needs to be done here..."
+
+
+
+.PHONY: all deploy check dry-run clean
