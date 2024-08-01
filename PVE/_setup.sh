@@ -1,5 +1,6 @@
 #!/bin/bash
 $Version = "1"
+#$mode="HOST|GUEST"
 SSH_PORT=22
 $echo
 if [ "$EUID" -ne 0 ];then
@@ -11,10 +12,10 @@ if ( type lsb_release &> /dev/null ); then
 	OS=$(lsb_release -is)
 	if [[ $OS =~ "RedHat" ]]; 	then OS="rhel"; fi
 	if [[ $OS =~ "Oracle" ]]; 	then OS="ol"; fi
-	if [[ $OS =~ "Ubuntu" ]]; 	then OS="ub"; fi
+	if [[ $OS =~ "Ubuntu" ]]; 	then OS="ubu"; fi
 	if [[ $OS =~ "Debian" ]]; 	then OS="deb"; fi
 	if [[ $OS =~ "Manjaro" ]];	then OS="aur"; fi
-	if [[ $OS =~ "Arch" ]];		then OS="aur"; fi
+	if [[ $OS =~ "Archlinux" ]];	then OS="aur"; fi
 	OS_V=$(lsb_release -rs | cut -f1 -d.)
 	echo "Found OS: $OS"
 elif [ -f /etc/os-release ]; then
