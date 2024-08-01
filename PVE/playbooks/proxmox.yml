@@ -1,0 +1,51 @@
+- hosts:
+    - pm
+  #    - internal_ops_hv
+  user: root
+  vars:
+    pm_ca_id: 2
+    dns_suffix: "{% if is_ops %}cyburity.net{% else %}customer{% endif %}"
+  roles:
+    - role: common
+    - role: proxmox-checks
+    - role: cyburity-ca-trust
+      when: not is_ops
+    - role: repo-proxmox
+    - role: sshd
+    - role: users
+      when: not is_ops
+    - role: prometheus-node-exporter
+    - role: proxmox-images
+    - role: proxmox-auth
+    - role: rsyslog
+      when: not is_ops
+      vars:
+        rsyslog_send_remote: yes
+        rsyslog_remote: "{{ site.hosts.admin }}"
+
+    - role: cert
+      vars:
+        ca_id: "{{ pm_ca_id }}"
+        id: pve
+        cn: "{{ inventory_hostname }}.{{ dns_suffix }}"
+        sans:
+          - type: dns
+            name: "{{ inventory_hostname }}.{{ dns_suffix }}"
+
+          - type: ipv4
+            names: "{{ ansible_all_ipv4_addresses }}"
+
+        do_notify: [update Proxmox certificates]
+
+  post_tasks:
+    - name: restart pveproxy
+      systemd:
+        unit: pveproxy.service
+        state: restarted
+
+  handlers:
+    - name: update Proxmox certificates
+      shell: >
+        cp /etc/ssl/managed/pve/privkey.pem /etc/pve/local/pveproxy-ssl.key &&
+        cp /etc/ssl/managed/pve/cert.pem /etc/pve/local/pveproxy-ssl.pem
+

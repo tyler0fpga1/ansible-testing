@@ -1,0 +1,26 @@
+- hosts: containers
+  become: yes
+  # the container is not up, nothing to gather here
+  gather_facts: False
+  # files on the host system are changed,
+  # creating multiple containers in parallel might cause a race condition
+  serial: 1
+
+  tasks:
+  - name: Create LXD Container
+    become: True
+    lxd_container:
+      name: "{{ inventory_name }}"
+      state: started
+      source:
+        type: image
+        mode: pull
+        server: https://cloud-images.ubuntu.com/releases
+        protocol: simplestreams
+        alias: 16.10/amd64
+      profiles: ['default']
+      wait_for_ipv4_addresses: true
+      timeout: 600
+    register: container_setup
+    delegate_to: "{{ ansible_host }}"
+    #delegate_facts: True
